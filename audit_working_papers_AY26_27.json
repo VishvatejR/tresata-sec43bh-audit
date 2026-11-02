@@ -1,0 +1,291 @@
+{
+  "rule_metadata": {
+    "rule_version": "IN_IT_ACT_43BH_AY2026_27_v1.2",
+    "effective_fy_start": "2025-04-01",
+    "effective_fy_end": "2026-03-31",
+    "default_no_agreement_days": 15,
+    "max_written_agreement_days": 45,
+    "objection_window_days": 15,
+    "eligible_enterprise_tiers": [
+      "MICRO",
+      "SMALL"
+    ],
+    "eligible_activities": [
+      "MANUFACTURING",
+      "SERVICES"
+    ],
+    "excluded_nic_prefixes": [
+      "45",
+      "46",
+      "47"
+    ],
+    "corporate_tax_rate_effective": 0.25168,
+    "confidence_threshold": 0.85
+  },
+  "generated_at_utc": "2026-11-02T21:00:46.500638+00:00",
+  "audit_decisions": [
+    {
+      "case_id": "TC-01",
+      "scenario_name": "Net 60 PO Cap Trap (Capped at 45d)",
+      "vendor_name": "Shree Ganesh Precision Forgings Pvt Ltd",
+      "invoice_amount_inr": 850000.0,
+      "status": "DISALLOWED_43BH",
+      "expected_ground_truth": "DISALLOWED_43BH",
+      "matched_ground_truth": true,
+      "disallowed_amount_inr": 850000.0,
+      "cash_tax_impact_inr": 213928.0,
+      "appointed_day_start": "2026-02-01",
+      "statutory_due_date": "2026-03-18",
+      "actual_payment_date": "2026-04-02",
+      "days_allowed": 45,
+      "rule_trace": [
+        "BASE_CLOCK: max(invoice=2026-02-01, delivery=2026-02-01) -> 2026-02-01",
+        "CREDIT_TERMS: Bilateral PO agreement (60d) capped at statutory maximum -> 45 days.",
+        "STATUTORY_DUE_DATE: 2026-02-01 + 45 days = 2026-03-18",
+        "BREACH_43BH: Unpaid as of 2026-03-31 AND payment (2026-04-02) exceeded statutory due date (2026-03-18). First Proviso to Sec 43B (Sec 139(1) ITR due-date relief) is inapplicable."
+      ],
+      "human_review_reason": null,
+      "rule_version": "IN_IT_ACT_43BH_AY2026_27_v1.2"
+    },
+    {
+      "case_id": "TC-02",
+      "scenario_name": "Unilateral Invoice Terms (No PO -> 15d Default)",
+      "vendor_name": "Nanded Micro CNC Works",
+      "invoice_amount_inr": 320000.0,
+      "status": "DISALLOWED_43BH",
+      "expected_ground_truth": "DISALLOWED_43BH",
+      "matched_ground_truth": true,
+      "disallowed_amount_inr": 320000.0,
+      "cash_tax_impact_inr": 80537.6,
+      "appointed_day_start": "2026-03-10",
+      "statutory_due_date": "2026-03-25",
+      "actual_payment_date": "2026-04-05",
+      "days_allowed": 15,
+      "rule_trace": [
+        "BASE_CLOCK: max(invoice=2026-03-10, delivery=2026-03-10) -> 2026-03-10",
+        "CREDIT_TERMS: No bilateral written agreement -> default statutory 15 days.",
+        "STATUTORY_DUE_DATE: 2026-03-10 + 15 days = 2026-03-25",
+        "BREACH_43BH: Unpaid as of 2026-03-31 AND payment (2026-04-05) exceeded statutory due date (2026-03-25). First Proviso to Sec 43B (Sec 139(1) ITR due-date relief) is inapplicable."
+      ],
+      "human_review_reason": null,
+      "rule_version": "IN_IT_ACT_43BH_AY2026_27_v1.2"
+    },
+    {
+      "case_id": "TC-03",
+      "scenario_name": "Year-End Straddle Paid Within 45d Window",
+      "vendor_name": "Deccan Cloud Analytics LLP",
+      "invoice_amount_inr": 540000.0,
+      "status": "ALLOWABLE",
+      "expected_ground_truth": "ALLOWABLE",
+      "matched_ground_truth": true,
+      "disallowed_amount_inr": 0.0,
+      "cash_tax_impact_inr": 0.0,
+      "appointed_day_start": "2026-03-20",
+      "statutory_due_date": "2026-05-04",
+      "actual_payment_date": "2026-04-25",
+      "days_allowed": 45,
+      "rule_trace": [
+        "BASE_CLOCK: max(invoice=2026-03-20, delivery=2026-03-20) -> 2026-03-20",
+        "CREDIT_TERMS: Bilateral PO agreement (45d) capped at statutory maximum -> 45 days.",
+        "STATUTORY_DUE_DATE: 2026-03-20 + 45 days = 2026-05-04",
+        "TIMELY_NEXT_FY_PAYMENT: Paid on 2026-04-25 which is <= statutory due date 2026-05-04. Allowable."
+      ],
+      "human_review_reason": null,
+      "rule_version": "IN_IT_ACT_43BH_AY2026_27_v1.2"
+    },
+    {
+      "case_id": "TC-04",
+      "scenario_name": "Valid Quality Objection (<15d) Resets Clock",
+      "vendor_name": "Sahyadri Copper Windings Co",
+      "invoice_amount_inr": 1200000.0,
+      "status": "ALLOWABLE",
+      "expected_ground_truth": "ALLOWABLE",
+      "matched_ground_truth": true,
+      "disallowed_amount_inr": 0.0,
+      "cash_tax_impact_inr": 0.0,
+      "appointed_day_start": "2026-03-22",
+      "statutory_due_date": "2026-04-21",
+      "actual_payment_date": "2026-04-18",
+      "days_allowed": 30,
+      "rule_trace": [
+        "BASE_CLOCK: max(invoice=2026-02-10, delivery=2026-02-10) -> 2026-02-10",
+        "OBJECTION_RESET: Written quality objection raised in 8d (<=15d). Clock reset to defect resolution date 2026-03-22.",
+        "CREDIT_TERMS: Bilateral PO agreement (30d) capped at statutory maximum -> 30 days.",
+        "STATUTORY_DUE_DATE: 2026-03-22 + 30 days = 2026-04-21",
+        "TIMELY_NEXT_FY_PAYMENT: Paid on 2026-04-18 which is <= statutory due date 2026-04-21. Allowable."
+      ],
+      "human_review_reason": null,
+      "rule_version": "IN_IT_ACT_43BH_AY2026_27_v1.2"
+    },
+    {
+      "case_id": "TC-05",
+      "scenario_name": "Belated Quality Objection (>15d) Ignored",
+      "vendor_name": "Bharat Alloy Castings",
+      "invoice_amount_inr": 675000.0,
+      "status": "DISALLOWED_43BH",
+      "expected_ground_truth": "DISALLOWED_43BH",
+      "matched_ground_truth": true,
+      "disallowed_amount_inr": 675000.0,
+      "cash_tax_impact_inr": 169884.0,
+      "appointed_day_start": "2026-02-01",
+      "statutory_due_date": "2026-03-03",
+      "actual_payment_date": "2026-04-10",
+      "days_allowed": 30,
+      "rule_trace": [
+        "BASE_CLOCK: max(invoice=2026-02-01, delivery=2026-02-01) -> 2026-02-01",
+        "OBJECTION_IGNORED: Written objection raised after 21d (>15d statutory limit). Original clock retained.",
+        "CREDIT_TERMS: Bilateral PO agreement (30d) capped at statutory maximum -> 30 days.",
+        "STATUTORY_DUE_DATE: 2026-02-01 + 30 days = 2026-03-03",
+        "BREACH_43BH: Unpaid as of 2026-03-31 AND payment (2026-04-10) exceeded statutory due date (2026-03-03). First Proviso to Sec 43B (Sec 139(1) ITR due-date relief) is inapplicable."
+      ],
+      "human_review_reason": null,
+      "rule_version": "IN_IT_ACT_43BH_AY2026_27_v1.2"
+    },
+    {
+      "case_id": "TC-06",
+      "scenario_name": "Wholesale Trader with Udyam PDF (NIC 46 Exempt)",
+      "vendor_name": "Metro Industrial Hardware Traders",
+      "invoice_amount_inr": 410000.0,
+      "status": "ALLOWABLE",
+      "expected_ground_truth": "ALLOWABLE",
+      "matched_ground_truth": true,
+      "disallowed_amount_inr": 0.0,
+      "cash_tax_impact_inr": 0.0,
+      "appointed_day_start": null,
+      "statutory_due_date": null,
+      "actual_payment_date": null,
+      "days_allowed": null,
+      "rule_trace": [
+        "EXEMPT_TRADER: Activity=TRADING (NIC 46) excluded per Ministry of MSME OM dated 02.07.2021."
+      ],
+      "human_review_reason": null,
+      "rule_version": "IN_IT_ACT_43BH_AY2026_27_v1.2"
+    },
+    {
+      "case_id": "TC-07",
+      "scenario_name": "Medium Enterprise Exemption",
+      "vendor_name": "Apex Auto Components Ltd",
+      "invoice_amount_inr": 2450000.0,
+      "status": "ALLOWABLE",
+      "expected_ground_truth": "ALLOWABLE",
+      "matched_ground_truth": true,
+      "disallowed_amount_inr": 0.0,
+      "cash_tax_impact_inr": 0.0,
+      "appointed_day_start": null,
+      "statutory_due_date": null,
+      "actual_payment_date": null,
+      "days_allowed": null,
+      "rule_trace": [
+        "EXEMPT_TIER: Vendor tier is MEDIUM; only MICRO and SMALL covered."
+      ],
+      "human_review_reason": null,
+      "rule_version": "IN_IT_ACT_43BH_AY2026_27_v1.2"
+    },
+    {
+      "case_id": "TC-08",
+      "scenario_name": "Capital Expenditure (CapEx) Fixed Asset Exemption",
+      "vendor_name": "Kulkarni Machine Tools Pvt Ltd",
+      "invoice_amount_inr": 3800000.0,
+      "status": "ALLOWABLE",
+      "expected_ground_truth": "ALLOWABLE",
+      "matched_ground_truth": true,
+      "disallowed_amount_inr": 0.0,
+      "cash_tax_impact_inr": 0.0,
+      "appointed_day_start": null,
+      "statutory_due_date": null,
+      "actual_payment_date": "2026-05-10",
+      "days_allowed": null,
+      "rule_trace": [
+        "EXEMPT_CAPEX: Capital expenditure is not claimed under Sec 30-37 P&L; Sec 43B(h) inapplicable."
+      ],
+      "human_review_reason": null,
+      "rule_version": "IN_IT_ACT_43BH_AY2026_27_v1.2"
+    },
+    {
+      "case_id": "TC-09",
+      "scenario_name": "Overdue In-Year Payment (Paid Before March 31)",
+      "vendor_name": "Vidarbha Enviro Testing Lab",
+      "invoice_amount_inr": 180000.0,
+      "status": "ALLOWABLE",
+      "expected_ground_truth": "ALLOWABLE",
+      "matched_ground_truth": true,
+      "disallowed_amount_inr": 0.0,
+      "cash_tax_impact_inr": 0.0,
+      "appointed_day_start": "2026-01-01",
+      "statutory_due_date": null,
+      "actual_payment_date": "2026-03-28",
+      "days_allowed": null,
+      "rule_trace": [
+        "PAID_IN_SAME_FY: Paid on 2026-03-28 (<= 2026-03-31). Allowable on actual payment basis in FY 2025-26."
+      ],
+      "human_review_reason": null,
+      "rule_version": "IN_IT_ACT_43BH_AY2026_27_v1.2"
+    },
+    {
+      "case_id": "TC-10",
+      "scenario_name": "Ambiguous Composite Contract -> Route to Human CA",
+      "vendor_name": "SuryaTej Solar Solutions",
+      "invoice_amount_inr": 950000.0,
+      "status": "ROUTE_TO_HUMAN_CA",
+      "expected_ground_truth": "ROUTE_TO_HUMAN_CA",
+      "matched_ground_truth": true,
+      "disallowed_amount_inr": 0.0,
+      "cash_tax_impact_inr": 0.0,
+      "appointed_day_start": null,
+      "statutory_due_date": null,
+      "actual_payment_date": null,
+      "days_allowed": null,
+      "rule_trace": [
+        "HOLD_CONFIDENCE: Confidence=0.72, Expense=AMBIGUOUS, Activity=COMPOSITE"
+      ],
+      "human_review_reason": "Ambiguous composite contract or low extraction confidence requires CA review.",
+      "rule_version": "IN_IT_ACT_43BH_AY2026_27_v1.2"
+    },
+    {
+      "case_id": "TC-11",
+      "scenario_name": "[FAILURE MODE 1] DD/MM vs MM/DD Challan Date Ambiguity",
+      "vendor_name": "Godavari Fasteners & Springs",
+      "invoice_amount_inr": 490000.0,
+      "status": "ALLOWABLE",
+      "expected_ground_truth": "DISALLOWED_43BH",
+      "matched_ground_truth": false,
+      "disallowed_amount_inr": 0.0,
+      "cash_tax_impact_inr": 0.0,
+      "appointed_day_start": "2026-03-02",
+      "statutory_due_date": "2026-04-01",
+      "actual_payment_date": "2026-04-01",
+      "days_allowed": 30,
+      "rule_trace": [
+        "BASE_CLOCK: max(invoice=2026-03-02, delivery=2026-03-02) -> 2026-03-02",
+        "CREDIT_TERMS: Bilateral PO agreement (30d) capped at statutory maximum -> 30 days.",
+        "STATUTORY_DUE_DATE: 2026-03-02 + 30 days = 2026-04-01",
+        "TIMELY_NEXT_FY_PAYMENT: Paid on 2026-04-01 which is <= statutory due date 2026-04-01. Allowable."
+      ],
+      "human_review_reason": null,
+      "rule_version": "IN_IT_ACT_43BH_AY2026_27_v1.2"
+    },
+    {
+      "case_id": "TC-12",
+      "scenario_name": "[FAILURE MODE 2] Dual-NIC Udyam PDF + Opaque SKU",
+      "vendor_name": "Precision Flow Control Systems",
+      "invoice_amount_inr": 730000.0,
+      "status": "DISALLOWED_43BH",
+      "expected_ground_truth": "ALLOWABLE",
+      "matched_ground_truth": false,
+      "disallowed_amount_inr": 730000.0,
+      "cash_tax_impact_inr": 183726.4,
+      "appointed_day_start": "2026-01-25",
+      "statutory_due_date": "2026-02-24",
+      "actual_payment_date": null,
+      "days_allowed": 30,
+      "rule_trace": [
+        "BASE_CLOCK: max(invoice=2026-01-25, delivery=2026-01-25) -> 2026-01-25",
+        "CREDIT_TERMS: Bilateral PO agreement (30d) capped at statutory maximum -> 30 days.",
+        "STATUTORY_DUE_DATE: 2026-01-25 + 30 days = 2026-02-24",
+        "BREACH_43BH: Unpaid as of 2026-03-31 AND payment (None) exceeded statutory due date (2026-02-24). First Proviso to Sec 43B (Sec 139(1) ITR due-date relief) is inapplicable."
+      ],
+      "human_review_reason": null,
+      "rule_version": "IN_IT_ACT_43BH_AY2026_27_v1.2"
+    }
+  ]
+}
